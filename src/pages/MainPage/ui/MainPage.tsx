@@ -22,14 +22,16 @@ export const MainPage = () => {
     const [selected, setSelected] = useState<number>();
     const dispatch = useAppDispatch();
 
-    if (inView && !isLoading && hasMore) {
-        dispatch(mainPageActions.setPage(pageNumber + 1));
-        dispatch(getUsers(pageNumber + 1));
-    }
-
     useEffect(() => {
         dispatch(getUsers(pageNumber));
-    }, [dispatch]);
+    }, []);
+
+    useEffect(() => {
+        if (inView && !isLoading && hasMore) {
+            dispatch(mainPageActions.setPage(pageNumber + 1));
+            dispatch(getUsers(pageNumber + 1));
+        }
+    }, [inView]);
 
     const onSelect = (userNumber: number) => {
         if (userNumber === selected) {
@@ -39,16 +41,6 @@ export const MainPage = () => {
         }
     };
 
-    if (isLoading) {
-        return (
-            <div className={classes.MainPage}>
-                <div className="container">
-                    <div className={classes.content}>LOADING USERS...</div>
-                </div>
-            </div>
-        );
-    }
-
     return (
         <div className={classes.MainPage}>
             <div className="container">
@@ -56,7 +48,14 @@ export const MainPage = () => {
                     {users.map((user, i) => (
                         <UserItem onSelect={onSelect} selected={selected === i} userNumber={i} key={i} user={user} />
                     ))}
-                    <h1 ref={ref}>ELEMENT</h1>
+                    {isLoading ? (
+                        <>
+                            <div className={classes.skeleton}></div>
+                            <div className={classes.skeleton}></div>
+                            <div className={classes.skeleton}></div>
+                        </>
+                    ) : null}
+                    <div className={classes.ref} ref={ref}></div>
                 </div>
             </div>
         </div>
