@@ -2,6 +2,7 @@ export interface MainPageSchema {
     users: User[];
     isLoading: boolean;
     page: number;
+    hasMore: boolean;
 }
 
 export enum Color {
@@ -11,6 +12,7 @@ export enum Color {
 }
 
 export interface User {
+    id: number;
     // Любимый цвет
     color: Color;
     // Полное имя

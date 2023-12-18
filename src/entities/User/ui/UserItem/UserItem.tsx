@@ -30,6 +30,7 @@ export const UserItem = (props: UserItemProps) => {
             <div style={{ backgroundColor: user.color.toString() }} className={classes.avatar}></div>
             <div className={classes.info}>
                 <div className={classes.name}>{user.name}</div>
+                <div>{user.id}</div>
                 <div className={classes.timeAndSpeed}>
                     <div className={classes.time}>{user.time}</div>
                     <div className={classes.separator}></div>

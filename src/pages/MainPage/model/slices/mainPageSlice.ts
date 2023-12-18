@@ -6,6 +6,7 @@ const initialState: MainPageSchema = {
     isLoading: false,
     users: [],
     page: 1,
+    hasMore: true,
 };
 
 export const mainPageSlice = createSlice({
@@ -13,10 +14,16 @@ export const mainPageSlice = createSlice({
     initialState,
     reducers: {
         setUsers: (state, action: PayloadAction<User[]>) => {
-            state.users = action.payload;
+            state.users = [...state.users, ...action.payload];
         },
         setIsLoading: (state, action: PayloadAction<boolean>) => {
             state.isLoading = action.payload;
+        },
+        setPage: (state, action: PayloadAction<number>) => {
+            state.page = action.payload;
+        },
+        setHasMore: (state, action: PayloadAction<boolean>) => {
+            state.hasMore = action.payload;
         },
     },
 });

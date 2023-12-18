@@ -12,6 +12,9 @@ export const getUsers = (pageNumber: number) => (dispatch: AppDispatch) => {
         .then((response) => {
             dispatch(mainPageActions.setUsers(response.data));
             dispatch(mainPageActions.setIsLoading(false));
+            if (response.data.length < 10) {
+                dispatch(mainPageActions.setHasMore(false));
+            }
         })
         .catch((value) => {
             dispatch(mainPageActions.setIsLoading(false));
